@@ -1,0 +1,22 @@
+name: Upload Local PDF to Release
+on: 
+  push:
+    tags:
+       - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions: :
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create github release
+        uses: softprops/action-gh-release@v2
+        with: 
+          files: main.pdf
+          body: "Offical Book Release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKENS }}
